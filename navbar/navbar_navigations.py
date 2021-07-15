@@ -51,6 +51,11 @@ class NavbarTest(unittest.TestCase):
         expected = f"{self.url}" + "public_polls"
         self.assertEqual(expected, actual)
 
+    def test_create_poll_help_header(self):
+        self.driver.find_element_by_xpath('/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a').click()
+        actual = self.driver.find_element_by_xpath('/html/body/ngb-modal-window/div/div/app-create-poll-help/app-help/div/label[1]').text
+        expected = "HELP: CREATE A POLL"
+        self.assertEqual(expected, actual)
 
 
 if __name__ == '__main__':
