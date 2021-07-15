@@ -27,6 +27,12 @@ class NavbarTest(unittest.TestCase):
         expected = "MobpollInAngular"
         self.assertEqual(expected, actual_title)
 
+    def test_navigate_to_create_poll(self):
+        self.driver.find_element_by_xpath('/html/body/app-root/app-nav-bar/nav/ul/li[1]/a').click()
+        actual = self.driver.current_url
+        expected = f"{self.url}"
+        self.assertEqual(expected, actual)
+
     def test_navigate_to_about(self):
         self.driver.find_element_by_xpath('/html/body/app-root/app-nav-bar/nav/ul/li[3]/a').click()
         actual = self.driver.current_url
@@ -44,6 +50,7 @@ class NavbarTest(unittest.TestCase):
         actual = self.driver.current_url
         expected = f"{self.url}" + "public_polls"
         self.assertEqual(expected, actual)
+
 
 
 if __name__ == '__main__':
