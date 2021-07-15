@@ -39,6 +39,12 @@ class NavbarTest(unittest.TestCase):
         expected = f"{self.url}" + "learn_more"
         self.assertEqual(expected, actual)
 
+    def test_navigate_to_public_polls(self):
+        self.driver.find_element_by_xpath('/html/body/app-root/app-nav-bar/nav/ul/li[5]/a').click()
+        actual = self.driver.current_url
+        expected = f"{self.url}" + "public_polls"
+        self.assertEqual(expected, actual)
+
 
 if __name__ == '__main__':
     unittest.main()
