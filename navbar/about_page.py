@@ -74,6 +74,15 @@ class AboutPage(unittest.TestCase):
         expected = "#ff9e13"
         self.assertEqual(expected, actual)
 
+    def test_about_page_help_paragraph_text_font(self):
+        self.about_driver.find_element_by_xpath(
+            "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
+        actual = self.about_driver.find_element_by_xpath(
+            "/html/body/ngb-modal-window/div/div/app-about-help/app-help/div/label[2]/p").value_of_css_property(
+            "font-family")
+        expected = "days-font"
+        self.assertEqual(expected, actual)
+
     def test_about_page_help_submit_button(self):
         self.about_driver.find_element_by_xpath(
             "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
