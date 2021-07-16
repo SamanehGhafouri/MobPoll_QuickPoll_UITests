@@ -167,6 +167,34 @@ class AboutPage(unittest.TestCase):
         expected = "Verdana"
         self.assertEqual(expected, actual)
 
+    def test_about_page_Terms_of_Service_link(self):
+        self.about_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-about/app-contatiner/div/div[3]/label[2]/a[1]").click()
+        actual = self.about_driver.current_url
+        expected = "http://localhost:4200/terms_of_service"
+        self.assertEqual(expected, actual)
+
+    def test_about_page_Terms_of_Service_link_text(self):
+        actual = self.about_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-about/app-contatiner/div/div[3]/label[2]/a[1]").text
+        expected = "Terms of Service"
+        self.assertEqual(expected, actual)
+
+    def test_about_page_Terms_of_Service_link_text_color(self):
+        color = self.about_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-about/app-contatiner/div/div[3]/label[2]/a[1]")\
+            .value_of_css_property("color")
+        actual = Color.from_string(color).hex
+        expected = "#ff9e13"
+        self.assertEqual(expected, actual)
+
+    def test_about_page_Terms_of_Service_link_text_font(self):
+        actual = self.about_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-about/app-contatiner/div/div[3]/label[2]/a[1]")\
+            .value_of_css_property("font-family")
+        expected = "Verdana"
+        self.assertEqual(expected, actual)
+
 
 if __name__ == '__main__':
     unittest.main()
