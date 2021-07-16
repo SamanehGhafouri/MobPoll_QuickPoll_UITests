@@ -90,6 +90,21 @@ class AboutPage(unittest.TestCase):
         expected = "CLOSE"
         self.assertEqual(expected, actual)
 
+    def test_about_page_help_submit_button_color(self):
+        self.about_driver.find_element_by_xpath(
+            "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
+        color = self.about_driver.find_element_by_class_name("alert-box-button").value_of_css_property("color")
+        actual = Color.from_string(color).hex
+        expected = "#ffffff"
+        self.assertEqual(expected, actual)
+
+    def test_about_page_help_submit_button_font(self):
+        self.about_driver.find_element_by_xpath(
+            "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
+        actual = self.about_driver.find_element_by_class_name("alert-box-button").value_of_css_property("font-family")
+        expected = "days-font"
+        self.assertEqual(expected, actual)
+
 
 if __name__ == '__main__':
     unittest.main()
