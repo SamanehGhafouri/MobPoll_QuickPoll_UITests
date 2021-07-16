@@ -105,6 +105,12 @@ class AboutPage(unittest.TestCase):
         expected = "days-font"
         self.assertEqual(expected, actual)
 
+    def test_about_page_MobPoll_link(self):
+        self.about_driver.find_element_by_xpath("/html/body/app-root/div/div/app-about/app-contatiner/div/div[2]/label[2]/a[1]").click()
+        actual = self.about_driver.current_url
+        expected = "https://www.facebook.com/MobPoll"
+        self.assertEqual(expected, actual)
+
 
 if __name__ == '__main__':
     unittest.main()
