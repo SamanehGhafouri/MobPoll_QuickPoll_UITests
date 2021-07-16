@@ -9,26 +9,27 @@ class AboutPage(unittest.TestCase):
         self.about_driver = webdriver.Chrome()
         self.about_url = "http://localhost:4200/about"
         self.about_driver.get(self.about_url)
+        self.main_url = "http://localhost:4200/"
 
     def test_nav_to_create_poll(self):
 
         self.about_driver.find_element_by_xpath("/html/body/app-root/app-nav-bar/nav/ul/li[1]/a").click()
         actual = self.about_driver.current_url
-        expected = "http://localhost:4200/"
+        expected = self.main_url
         self.assertEqual(expected, actual)
 
     def test_nav_to_learn_more(self):
 
         self.about_driver.find_element_by_xpath("/html/body/app-root/app-nav-bar/nav/ul/li[4]/a").click()
         actual = self.about_driver.current_url
-        expected = "http://localhost:4200/learn_more"
+        expected = f"{self.main_url}" + "learn_more"
         self.assertEqual(expected, actual)
 
     def test_nav_to_public_poll(self):
 
         self.about_driver.find_element_by_xpath("/html/body/app-root/app-nav-bar/nav/ul/li[5]/a").click()
         actual = self.about_driver.current_url
-        expected = "http://localhost:4200/public_polls"
+        expected = f"{self.main_url}" + "public_polls"
         self.assertEqual(expected, actual)
 
     def test_about_page_help_header(self):
