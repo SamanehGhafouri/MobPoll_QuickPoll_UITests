@@ -35,8 +35,10 @@ class AboutPage(unittest.TestCase):
 
     def test_about_page_help_header(self):
 
-        self.about_driver.find_element_by_xpath("/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
-        actual = self.about_driver.find_element_by_xpath("/html/body/ngb-modal-window/div/div/app-about-help/app-help/div/label[1]").text
+        self.about_driver.find_element_by_xpath(
+            "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
+        actual = self.about_driver.find_element_by_xpath(
+            "/html/body/ngb-modal-window/div/div/app-about-help/app-help/div/label[1]").text
         expected = "HELP: ABOUT"
         self.assertEqual(expected, actual)
 
@@ -53,13 +55,15 @@ class AboutPage(unittest.TestCase):
         self.about_driver.find_element_by_xpath(
             "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
         actual = self.about_driver.find_element_by_xpath(
-            "/html/body/ngb-modal-window/div/div/app-about-help/app-help/div/label[1]").value_of_css_property("font-family")
+            "/html/body/ngb-modal-window/div/div/app-about-help/app-help/div/label[1]")\
+            .value_of_css_property("font-family")
         expected = "days-font"
         self.assertEqual(expected, actual)
 
     def test_about_page_help_paragraph_text(self):
 
-        self.about_driver.find_element_by_xpath("/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
+        self.about_driver.find_element_by_xpath(
+            "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
         actual = self.about_driver.find_element_by_xpath(
             "/html/body/ngb-modal-window/div/div/app-about-help/app-help/div/label[2]/p").text
         expected = "Find us on Facebook by visiting the links on this page."
@@ -106,9 +110,61 @@ class AboutPage(unittest.TestCase):
         self.assertEqual(expected, actual)
 
     def test_about_page_MobPoll_link(self):
-        self.about_driver.find_element_by_xpath("/html/body/app-root/div/div/app-about/app-contatiner/div/div[2]/label[2]/a[1]").click()
+        self.about_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-about/app-contatiner/div/div[2]/label[2]/a[1]").click()
         actual = self.about_driver.current_url
         expected = "https://www.facebook.com/MobPoll"
+        self.assertEqual(expected, actual)
+
+    def test_about_page_MobPoll_link_text(self):
+        actual = self.about_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-about/app-contatiner/div/div[2]/label[2]/a[1]").text
+        expected = "MobPoll"
+        self.assertEqual(expected, actual)
+
+    def test_about_page_MobPoll_link_color(self):
+
+        color = self.about_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-about/app-contatiner/div/div[2]/label[2]/a[1]")\
+            .value_of_css_property("color")
+        actual = Color.from_string(color).hex
+        expected = "#ff9e13"
+        self.assertEqual(expected, actual)
+
+    def test_about_page_MobPoll_link_font(self):
+
+        actual = self.about_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-about/app-contatiner/div/div[2]/label[2]/a[1]")\
+            .value_of_css_property("font-family")
+        expected = "Verdana"
+        self.assertEqual(expected, actual)
+
+    def test_about_page_Make_Voting_Count_link(self):
+        self.about_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-about/app-contatiner/div/div[2]/label[2]/a[2]").click()
+        actual = self.about_driver.current_url
+        expected = "https://www.facebook.com/MakeVotingCount"
+        self.assertEqual(expected, actual)
+
+    def test_about_page_Make_Voting_Count_link_text(self):
+        actual = self.about_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-about/app-contatiner/div/div[2]/label[2]/a[2]").text
+        expected = "Make Voting Count"
+        self.assertEqual(expected, actual)
+
+    def test_about_page_Make_Voting_Count_link_text_color(self):
+        color = self.about_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-about/app-contatiner/div/div[2]/label[2]/a[2]")\
+            .value_of_css_property("color")
+        actual = Color.from_string(color).hex
+        expected = "#ff9e13"
+        self.assertEqual(expected, actual)
+
+    def test_about_page_Make_Voting_Count_link_text_font(self):
+        actual = self.about_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-about/app-contatiner/div/div[2]/label[2]/a[2]")\
+            .value_of_css_property("font-family")
+        expected = "Verdana"
         self.assertEqual(expected, actual)
 
 
