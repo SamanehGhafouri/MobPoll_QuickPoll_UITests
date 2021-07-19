@@ -32,6 +32,34 @@ class LearnMore(unittest.TestCase):
         expected = "days-font"
         self.assertEqual(expected, actual)
 
+    def test_make_voting_count_link_text(self):
+        actual = self.learn_more_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-more/app-contatiner/div/div[2]/label[2]/a[1]").text
+        expected = "Make Voting Count"
+        self.assertEqual(expected, actual)
+
+    def test_make_voting_count_link_text_font(self):
+        actual = self.learn_more_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-more/app-contatiner/div/div[2]/label[2]/a[1]")\
+            .value_of_css_property("font-family")
+        expected = "Verdana"
+        self.assertEqual(expected, actual)
+
+    def test_make_voting_count_link_text_color(self):
+        color = self.learn_more_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-more/app-contatiner/div/div[2]/label[2]/a[1]")\
+            .value_of_css_property("color")
+        actual = Color.from_string(color).hex
+        expected = "#ff9e13"
+        self.assertEqual(expected, actual)
+
+    def test_make_voting_count_link(self):
+        self.learn_more_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-more/app-contatiner/div/div[2]/label[2]/a[1]").click()
+        actual = self.learn_more_driver.current_url
+        expected = "https://www.facebook.com/MakeVotingCount"
+        self.assertEqual(expected, actual)
+
     def test_learn_more_help_header(self):
         self.learn_more_driver.find_element_by_xpath(
             "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
