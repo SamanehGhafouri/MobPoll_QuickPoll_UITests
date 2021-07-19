@@ -11,6 +11,27 @@ class LearnMore(unittest.TestCase):
         self.learn_more_driver.get(learn_more_url)
         self.main_url = "http://localhost:4200/"
 
+    def test_learn_more_header(self):
+        actual = self.learn_more_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-more/app-contatiner/div/div[1]/div/div[2]/label").text
+        expected = "Learn More".upper()
+        self.assertEqual(expected, actual)
+
+    def test_learn_more_header_color(self):
+        color = self.learn_more_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-more/app-contatiner/div/div[1]/div/div[2]/label")\
+            .value_of_css_property("color")
+        actual = Color.from_string(color).hex
+        expected = "#3fa9f5"
+        self.assertEqual(expected, actual)
+
+    def test_learn_more_header_font(self):
+        actual = self.learn_more_driver.find_element_by_xpath(
+            "/html/body/app-root/div/div/app-more/app-contatiner/div/div[1]/div/div[2]/label")\
+            .value_of_css_property("font-family")
+        expected = "days-font"
+        self.assertEqual(expected, actual)
+
     def test_learn_more_help_header(self):
         self.learn_more_driver.find_element_by_xpath(
             "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
