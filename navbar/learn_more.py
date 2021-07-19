@@ -11,6 +11,60 @@ class LearnMore(unittest.TestCase):
         self.learn_more_driver.get(learn_more_url)
         self.main_url = "http://localhost:4200/"
 
+    def test_learn_more_help_header(self):
+        self.learn_more_driver.find_element_by_xpath(
+            "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
+        actual = self.learn_more_driver.find_element_by_xpath(
+            "/html/body/ngb-modal-window/div/div/app-learn-more-help/app-help/div/label[1]").text
+        expected = "Help: Learn More".upper()
+        self.assertEqual(expected, actual)
+
+    def test_learn_more_help_header_font(self):
+        self.learn_more_driver.find_element_by_xpath(
+            "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
+        actual = self.learn_more_driver.find_element_by_xpath(
+            "/html/body/ngb-modal-window/div/div/app-learn-more-help/app-help/div/label[1]")\
+            .value_of_css_property("font-family")
+        expected = "days-font"
+        self.assertEqual(expected, actual)
+
+    def test_learn_more_help_header_color(self):
+        self.learn_more_driver.find_element_by_xpath(
+            "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
+        color = self.learn_more_driver.find_element_by_xpath(
+            "/html/body/ngb-modal-window/div/div/app-learn-more-help/app-help/div/label[1]")\
+            .value_of_css_property("color")
+        actual = Color.from_string(color).hex
+        expected = "#3fa9f5"
+        self.assertEqual(expected, actual)
+
+    def test_learn_more_help_body_text(self):
+        self.learn_more_driver.find_element_by_xpath(
+            "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
+        actual = self.learn_more_driver.find_element_by_xpath(
+            "/html/body/ngb-modal-window/div/div/app-learn-more-help/app-help/div/label[2]/p").text
+        expected = "Learn more about approval voting by visiting the links on this page."
+        self.assertEqual(expected, actual)
+
+    def test_learn_more_help_body_text_color(self):
+        self.learn_more_driver.find_element_by_xpath(
+            "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
+        color = self.learn_more_driver.find_element_by_xpath(
+            "/html/body/ngb-modal-window/div/div/app-learn-more-help/app-help/div/label[2]/p")\
+            .value_of_css_property("color")
+        actual = Color.from_string(color).hex
+        expected = "#ff9e13"
+        self.assertEqual(expected, actual)
+
+    def test_learn_more_help_body_text_font(self):
+        self.learn_more_driver.find_element_by_xpath(
+            "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
+        actual = self.learn_more_driver.find_element_by_xpath(
+            "/html/body/ngb-modal-window/div/div/app-learn-more-help/app-help/div/label[2]/p")\
+            .value_of_css_property("font-family")
+        expected = "days-font"
+        self.assertEqual(expected, actual)
+
     def test_nav_to_create_poll(self):
         self.learn_more_driver.find_element_by_xpath("/html/body/app-root/app-nav-bar/nav/ul/li[1]/a").click()
         actual = self.learn_more_driver.current_url
