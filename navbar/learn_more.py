@@ -1,5 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.support.color import Color
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 import unittest
 
 
@@ -90,8 +93,12 @@ class LearnMore(unittest.TestCase):
     def test_learn_more_help_header(self):
         self.learn_more_driver.find_element_by_xpath(
             "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
-        actual = self.learn_more_driver.find_element_by_xpath(
-            "/html/body/ngb-modal-window/div/div/app-learn-more-help/app-help/div/label[1]").text
+
+        success_wait = WebDriverWait(self.learn_more_driver, 1800)
+        success_wait.until(EC.presence_of_element_located(
+                (By.XPATH, "/html/body/ngb-modal-window/div/div/app-learn-more-help/app-help/div/label[2]/p")))
+        actual = self.learn_more_driver\
+            .find_element_by_xpath("/html/body/ngb-modal-window/div/div/app-learn-more-help/app-help/div/label[1]").text
         expected = "Help: Learn More".upper()
         self.assertEqual(expected, actual)
 
@@ -114,14 +121,6 @@ class LearnMore(unittest.TestCase):
         expected = "#3fa9f5"
         self.assertEqual(expected, actual)
 
-    def test_learn_more_help_body_text(self):
-        self.learn_more_driver.find_element_by_xpath(
-            "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
-        actual = self.learn_more_driver.find_element_by_xpath(
-            "/html/body/ngb-modal-window/div/div/app-learn-more-help/app-help/div/label[2]/p").text
-        expected = "Learn more about approval voting by visiting the links on this page."
-        self.assertEqual(expected, actual)
-
     def test_learn_more_help_body_text_color(self):
         self.learn_more_driver.find_element_by_xpath(
             "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
@@ -139,6 +138,17 @@ class LearnMore(unittest.TestCase):
             "/html/body/ngb-modal-window/div/div/app-learn-more-help/app-help/div/label[2]/p")\
             .value_of_css_property("font-family")
         expected = "days-font"
+        self.assertEqual(expected, actual)
+
+    def test_learn_more_help_body_text(self):
+        self.learn_more_driver.find_element_by_xpath(
+            "/html/body/app-root/app-nav-bar/nav/ul/li[2]/app-help-button/a").click()
+        success_wait = WebDriverWait(self.learn_more_driver, 1800)
+        success_wait.until(EC.presence_of_element_located(
+                (By.XPATH, "/html/body/ngb-modal-window/div/div/app-learn-more-help/app-help/div/label[2]/p")))
+        actual = self.learn_more_driver\
+            .find_element_by_xpath("/html/body/ngb-modal-window/div/div/app-learn-more-help/app-help/div/label[2]/p").text
+        expected = "Learn more about approval voting by visiting the links on this page."
         self.assertEqual(expected, actual)
 
     def test_nav_to_create_poll(self):
