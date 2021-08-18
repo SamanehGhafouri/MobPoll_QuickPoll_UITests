@@ -1,10 +1,16 @@
 from selenium import webdriver
 import unittest
+import time
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+
 
 # We expect to see FORM ERROR! if:
 # 1. form is empty
 # 2. poll question input has only one word
 # 3. poll question input has 2 words or more and no option
+# 4. no poll question and one option
 
 
 class CreatePollForm(unittest.TestCase):
@@ -14,24 +20,41 @@ class CreatePollForm(unittest.TestCase):
         self.url = "http://localhost:4200/"
         self.driver.get(self.url)
 
-    def test_create_poll_with_empty_input(self):
+    @staticmethod
+    def wait_for_error_form_to_display():
+        # todo: find a better wait for animation
+        time.sleep(1)
 
+    def test_create_poll_with_empty_input(self):
         self.driver.find_element_by_id("createPoll").click()
-        actual = self.driver.find_element_by_class_name("title").text
+        self.wait_for_error_form_to_display()
+        actual = self.driver.find_element_by_id("alert-box-title").text
         expected = "FORM ERROR!"
         self.assertEqual(expected, actual)
 
     def test_poll_question_input_one_word(self):
         self.driver.find_element_by_id("pollQuestion").send_keys("Hello")
         self.driver.find_element_by_id("createPoll").click()
-        actual = self.driver.find_element_by_class_name("title").text
+        self.wait_for_error_form_to_display()
+        actual = self.driver.find_element_by_id("alert-box-title").text
         expected = "FORM ERROR!"
         self.assertEqual(expected, actual)
 
     def test_poll_question_two_words_no_options(self):
         self.driver.find_element_by_id("pollQuestion").send_keys("Do you have a question?")
         self.driver.find_element_by_id("createPoll").click()
-        actual = self.driver.find_element_by_class_name("title").text
+        self.wait_for_error_form_to_display()
+        actual = self.driver.find_element_by_id("alert-box-title").text
         expected = "FORM ERROR!"
         self.assertEqual(expected, actual)
 
+    def test_option_one_no_poll_question(self):
+        self.driver.find_element_by_id("option-1").send_keys("Yes")
+        self.driver.find_element_by_id("createPoll").click()
+        self.wait_for_error_form_to_display()
+        actual = self.driver.find_element_by_id("alert-box-title").text
+        expected = "FORM ERROR!"
+        self.assertEqual(expected, actual)
+
+    def tearDown(self) -> None:
+        self.driver.close()
