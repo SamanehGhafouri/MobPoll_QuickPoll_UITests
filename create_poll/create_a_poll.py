@@ -36,7 +36,7 @@ class CreateAPOll(unittest.TestCase):
 
         cur_url = self.driver.current_url
         path = urlparse(cur_url).path
-        if re.match('\/success\/([a-zA-Z0-9])+', path):
+        if re.match('\/success\/([a-zA-Z0-9])+$', path):
             result = True
         else:
             result = False
