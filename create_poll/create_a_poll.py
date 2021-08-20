@@ -43,6 +43,21 @@ class CreateAPOll(unittest.TestCase):
 
         self.assertEqual(True, result)
 
+    def test_created_poll_by_its_poll_url(self):
+        self.driver.find_element_by_id("pollQuestion").send_keys("Is poll url ready?")
+        self.driver.find_element_by_id("option-1").send_keys("Yes, it is")
+        self.driver.find_element_by_id("option-2").send_keys("No")
+        self.driver.find_element_by_id("createPoll").click()
+
+        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.ID, "success-container")))
+
+        poll_url = self.driver.find_element_by_id("poll-url").text
+        poll_id = urlparse(poll_url).path.split('/')[-1]
+
+        success_url = self.driver.current_url
+        success_id = urlparse(success_url).path.split('/')[-1]
+        self.assertEqual(poll_id, success_id)
+
 
 
 
